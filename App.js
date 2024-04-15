@@ -14,13 +14,23 @@ export default function App() {
     ]);
   };
 
+  const _handleDeleteGoal = (id) => {
+    setGoals((prevGoals) => prevGoals.filter((goal) => goal?.id !== id));
+  };
+
   return (
     <View style={styles.appContainer}>
       <GoalInput onAddGoal={_handleAddGoal} />
       <View style={styles.goalsContainer}>
         <FlatList
           data={goals}
-          renderItem={({ item }) => <GoalItem text={item?.text} />}
+          renderItem={({ item }) => (
+            <GoalItem
+              text={item?.text}
+              id={item?.id}
+              onDeleteGoal={_handleDeleteGoal}
+            />
+          )}
           keyExtractor={(item) => item?.id}
           alwaysBounceVertical={false}
         />
